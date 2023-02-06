@@ -41,8 +41,10 @@ function game(){
             computerScore += 1;
         }
 
-        console.log(`The score is: Player: ${playerScore} Computer: ${computerScore}`)
+        
     }
+
+    console.log(`The score is: Player: ${playerScore} Computer: ${computerScore}`);
 }
 
 game()
