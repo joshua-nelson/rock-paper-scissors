@@ -1,10 +1,25 @@
+let playerScore = 0;
+let computerScore = 0;
+const text = document.querySelector('h2');
+const score = document.querySelector('h1')
+const newGame = document.querySelector('#new-game');
+
+
+
+
+
+
+
 function getcomputerChoice() {
     const choices = ['rock', 'paper', 'scissors']
 
     return choices[Math.floor(Math.random() * choices.length)];
 }
 
+
 function playRound(playerSelection, computerSelection) {
+
+    
 
     playerSelection.toLowerCase();
     computerSelection.toLowerCase();
@@ -28,23 +43,55 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
-function game(){
-    let playerScore = 0;
-    let computerScore = 0;
+const playerChoices = Array.from(document.querySelectorAll('input'));
 
-    for (let i = 0; i < 5; i++) {
-        const playerChoice = prompt("Enter a choice: ");
-        
-        if (playRound(playerChoice, getcomputerChoice()).includes("You win")) {
-            playerScore += 1;
+
+    playerChoices.forEach(element => {
+    element.addEventListener('click', function(e){
+        let roundResult = playRound(e.target.id, getcomputerChoice());
+
+        if(playerScore == 5) {
+            text.textContent = 'Player Wins!';
+            
+        } else if (computerScore == 5){
+            text.textContent = 'Computer Wins!';
         } else {
-            computerScore += 1;
+            game(roundResult);
         }
+       
+    });
+});
 
-        
-    }
-
-    console.log(`The score is: Player: ${playerScore} Computer: ${computerScore}`);
+function resetGame() {
+    text.textContent = '';
+    score.textContent = '';
+    playerScore = 0;
+    computerScore = 0;
+    console.log("run");
 }
 
-game()
+function game(round){
+
+
+
+    scoreUpdate: if (round.includes("You win")) {
+        playerScore += 1;
+    } else if(round.includes("tie")) {
+        break scoreUpdate;
+    } else {
+        computerScore += 1;
+    }
+    
+
+    
+
+    text.textContent = round;
+    score.textContent = `Score: Player ${playerScore} Computer ${computerScore}`;
+
+}
+
+
+
+newGame.addEventListener('click', function(){
+    resetGame();
+});
